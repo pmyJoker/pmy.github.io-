@@ -1,0 +1,207 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<link rel="Bookmark" href="/favicon.ico" >
+<link rel="Shortcut Icon" href="./Admin/favicon.ico" />
+<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5shiv.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<![endif]-->
+<link rel="stylesheet" type="text/css" href="./Admin/static/h-ui/css/H-ui.min.css" />
+<link rel="stylesheet" type="text/css" href="./Admin/static/h-ui.admin/css/H-ui.admin.css" />
+<link rel="stylesheet" type="text/css" href="./Admin/lib/Hui-iconfont/1.0.8/iconfont.css" />
+<link rel="stylesheet" type="text/css" href="./Admin/static/h-ui.admin/skin/default/skin.css" id="skin" />
+<link rel="stylesheet" type="text/css" href="./Admin/static/h-ui.admin/css/style.css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<link href="./Admin/lib/lightbox2/2.8.1/css/lightbox.css" rel="stylesheet" type="text/css" >
+<title>合同列表</title>
+<style>
+	/* dataTables列内容居中 */
+	.table>tbody>tr>td{
+		text-align:center;
+	}
+
+</style>
+</head>
+<body class="pos-r">
+
+<!--<div class="pos-a" style="width:200px;left:0;top:0; bottom:0; height:100%; border-right:1px solid #e5e5e5; background-color:#f5f5f5; overflow:auto;">
+	<ul id="treeDemo" class="ztree"></ul>
+</div>-->
+<div >
+
+	<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 合同管理 <span class="c-gray en">&gt;</span> 合同列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+	<div class="page-container">
+		<div class="text-c">
+			<!--<span class="select-box inline">
+				<select id="model_type" name="" class="select">
+				<option value="0">选择分类</option>
+					<foreach name="type" item="v">
+						 <option value="{{$v.id}}" >{{$v['level']|str_repeat="├",###}}{{$v.name}}</option>
+					</foreach>
+				</select>
+			</span>
+			<span class="select-box inline">
+				<select id="model_id" name="" class="select">
+				<option value="0">选择模板</option>
+					<foreach name="model" item="v">
+						 <option value="{{$v.id}}" >{{$v.name}}</option>
+					</foreach>
+				</select>
+			</span>-->
+			日期范围：
+			<input type="text"  onfocus="WdatePicker({ maxDate:'#F{$dp.$D(\'logmax\')||\'%y-%M-%d\'}' })" id="logmin" class="input-text Wdate" style="width:120px;">
+			-
+			<input type="text"  onfocus="WdatePicker({ minDate:'#F{$dp.$D(\'logmin\')}',maxDate:'%y-%M-%d' })" id="logmax" class="input-text Wdate" style="width:120px;">
+
+			<input type="text" name="name" id="name" placeholder="产品名称" style="width:250px" class="input-text">
+			<button name="" id="on-search" class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i> 搜产品</button>
+		</div>
+		<div class="cl pd-5 bg-1 bk-gray mt-20"> <!--<span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a>--> <a class="btn btn-primary radius" onclick="product_add('添加合同','contract_add.html')" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加合同</a></span></div>
+		<div class="mt-20">
+			<table  class="table table-border table-bordered table-bg table-hover table-sort">
+				<thead>
+					<tr class="text-c">
+						<th width="40">ID</th>
+						<th width="100">合同编号</th>
+						<th width="60">产品名称</th>
+						<th width="60">产品价格</th>
+						<th width="60">产品数量</th>
+						<th width="60">创建时间</th>
+						<th width="60">状态</th>
+						<th width="60">物流单号</th>
+						<th width="60">备注</th>
+						<th width="60">完成时间</th>
+						<th width="40">操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr class="text-c va-m">
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+
+<include file="Public/_footer" />
+<!--请在下方写此页面业务相关的脚本-->
+
+<script src="./contract/js/jquery.min.js"></script>
+<script type="text/javascript" src="./Admin/lib/lightbox2/2.8.1/js/lightbox.min.js"></script>
+<script type="text/javascript" src="./Admin/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="./Admin/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="./Admin/lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript">
+var tbl;
+$(function(){
+    tbl= $('.table-sort').dataTable({
+	"aaSorting": [[ 0, "desc" ]],//默认第几个排序
+    //"bStateSave": true,//状态保存
+    "aLengthMenu" : [ 10, 20, 30,50 ] , //更改显示记录数选项
+    "iDisplayLength" : 10, //默认显示的记录数
+    "bLengthChange": true,                  //是否允许用户自定义每页显示条数。
+    "bPaginate": true,                      //是否分页。
+    "bProcessing": true,                    //当datatable获取数据时候是否显示正在处理提示信息。
+    "sPaginationType": 'full_numbers',      //分页样式
+    "serverSide":true,
+    "ajax": {
+        url: "http://192.168.1.133/project/storeroom/admin/Contract/ceshi",
+        type: "get",
+        dataType: "json",
+        data: function (d) {
+        	console.log(d);
+            d.search = d.search.value;
+            d.sort = d.order[0].column;
+            d.sort_way = d.order[0].dir;
+        },
+        dataSrc: function (data){
+            if (data.recordsTotal == null) {
+                data.recordsTotal = 0;
+            }
+            //查询结束取消按钮不可用
+			// console.log(data);
+            return data.rows;//自定义数据源，默认为data
+        },
+
+    },
+    "retrieve":true,
+
+    "columns": [
+        { "data": "id"},
+        { "data": "contract_no"},
+        { "data": "product_name"},
+        { "data": "product_price"},
+        { "data": "product_num"},
+        { "data": "data_intime"},
+        { "data": "status"},
+        { "data": "logistics"},
+        { "data": "remarks"},
+        { "data": "data_uptime"},
+        { "data": "id"},
+    ],
+});
+
+    $("#on-search").click(function () {
+        var oSettings = tbl.fnSettings();
+        tbl.fnClearTable(0);
+        tbl.fnDraw();
+
+    });
+
+
+});
+
+
+/*商品删除*/
+function see(id) {
+	$.ajax({
+		url:'__MODULE__/Commodity/com_del',
+		type:'post',
+		data:{'id':id},
+		success:function(data){
+		    console.log(data)
+			if(data.code==200){
+                layer.msg('删除成功',{icon:1,time:2000});
+                var oSettings = tbl.fnSettings();
+                tbl.fnClearTable(0);
+                tbl.fnDraw();
+			}else{
+                layer.msg('删除失败',{icon:5,time:2000});
+			}
+		}
+	});
+}
+
+/*经销商-添加*/
+function product_add(title,url){
+	var index = layer.open({
+		type: 2,
+		title: title,
+		content: url
+	});
+	layer.full(index);
+}
+
+/*经销商-编辑*/
+function com_up(title,url,id){
+	var index = layer.open({
+		type: 2,
+		title: title,
+		content: url+'/id/'+id
+	});
+	layer.full(index);
+}
+
+
+</script>
+</body>
+</html>

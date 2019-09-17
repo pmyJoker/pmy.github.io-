@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<link rel="stylesheet" href="./css/style.css">
+	<style>
+		*{
+			margin:0;
+			padding:0;
+			box-sizing: border-box;
+		}
+		html,body{
+			width: 100%;
+			height: 100%;
+		}
+		.category{
+			width:100%;
+			height:auto;
+		}
+		.category ul{
+			width:100%;
+			height:auto;
+		}
+		.category ul li{
+			width:6.5em;
+			height:2.5em;
+			font-size: 0.75em;
+			line-height: 2.5em;
+			background:#eee;
+			text-align: center;
+			border-radius: 1em;
+			float:left;
+			margin-left: 1em;
+			margin-bottom: 1em;
+		}
+		.category ul .liactive{
+			color:#fff;
+			background:#2766b7;
+		}
+		/* ul{
+			width:100%;
+			height: 100%;
+		}
+		ul li{
+			width: 100%;
+			height:100px;
+			line-height: 100px;
+			background: #eee;
+			text-align: center;
+			border-bottom: 1px solid #ccc;
+		} */
+	</style>
+</head>
+<body>
+	<div class="category" id="category">
+		<ul>
+			<li class="liactive">经典</li>
+			<li>轻音乐</li>
+			<li>钢琴曲</li>
+			<li>小号</li>
+			<li>人声</li>
+			<li>管弦乐</li>
+			<li>民乐</li>
+		</ul>
+	</div>
+	<!-- <ul>
+		<li>000</li>
+		<li>111</li>
+		<li>222</li>
+		<li>333</li>
+		<li>444</li>
+		<li>555</li>
+		<li>666</li>
+		<li>777</li>
+		<li>888</li>
+		<li>999</li>
+	</ul> -->
+	<script src="./js/jquery.min.js"></script>
+	<script>
+		// let category = document.getElementById("category");
+		// let categoryli = category.getElementsByTagName("li");
+		// console.log(categoryli);
+		// for(let i=0;i<categoryli.length;i++){
+		// 	categoryli[i].onclick =function(){
+		// 		let that =this;
+		// 		for(let k=0;k<categoryli.length;k++){
+		// 			categoryli[k].classList.remove("liactive");
+		// 		}
+		// 		that.classList.add("liactive");
+		// 	}
+		// }
+		$(".category ul li").click(function(){
+			let that =$(this);
+			that.siblings().removeClass("liactive");
+			that.addClass("liactive");
+			$.ajax({
+				url: "http://192.168.1.148/uvideo/mtv/index.php/Home2/Poetry/read_detail_ajax",
+				type: "POST",
+				data:{
+					scode:'1151'
+				},
+				datatype: "json",
+				success:function(data){
+					document.getElementById("section").innerHTML =data;
+				}
+			})
+		})
+
+		//获取滚动条当前的位置
+		function getScrollTop(){
+
+		}
+	</script>
+</body>
+</html>

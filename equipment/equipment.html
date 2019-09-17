@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+	<meta name="viewport" content="user-scalable=yes">
+  <title>订单查询</title>
+	<!-- <link rel="stylesheet" href="./css/lyz.calendar.css">
+	<link rel="stylesheet" href="./css/jquery.dataTables.min.css">
+	<link rel="stylesheet" href="./layui/css/layui.css">
+	<link rel="stylesheet" href="./css/H-ui.min.css">
+	<link rel="stylesheet" href="./css/style.css"> -->
+	<link rel="stylesheet" href="./css/lyz.calendar.css">
+	<link rel="stylesheet" href="./css/jquery.dataTables.min.css">
+	<link rel="stylesheet" href="./layui/css/layui.css">
+	<link rel="stylesheet" href="./css/H-ui.min.css">
+	<link rel="stylesheet" href="./css/style.css">
+	<style>
+		#example_wrapper .table{
+			width:100%;
+		}
+		.table>tbody>tr>td{
+			text-align: center;
+			vertical-align: middle;
+		}
+		.dataTables_scrollBody{
+			border:none;
+			text-align: center;
+			vertical-align: middle;
+		}
+		.layui-layer-prompt{
+			position: fixed;
+			z-index: 19891015;
+			top: 221px;
+			left: 200px;
+		}
+	</style>
+</head>
+<body>
+<section>
+  <div class="head">
+    <div class="query">
+			<!-- 设备编码 -->
+			<div class="code">
+				<div class="code_equipment">
+					设备编码&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="text" id="code_equipment_value">
+				</div>
+				<div class="code_type">
+						设备类型
+						<select name="" id="code_type_value">
+							<option value="0">所有</option>
+						</select>
+				</div>
+				<div class="code_company">
+						公司名称&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<select name="" id="code_company_value">
+							<option value="0">所有</option>
+						</select>
+				</div>
+			</div>
+			<!-- 积分范围 -->
+			<div class="integral">
+				<div class="integral_range">
+					<span>积分范围</span>
+					从&nbsp;&nbsp;<input type="text" id="integral_range_value_st"> 
+					&nbsp;到&nbsp;&nbsp;<input type="text" id="integral_range_value_end">
+				</div>
+				<div class="integral_num">
+					<span>可用次数</span>
+					从&nbsp;&nbsp;<input type="text" id="integral_num_value_st">
+					&nbsp;到&nbsp;&nbsp;<input type="text" id="integral_num_value_end">
+				</div>
+			</div>
+			<!-- 销售日期 -->
+			<div class="date">
+				<div class="date_sale">
+					<span>销售日期</span>
+					从&nbsp;&nbsp;<input type="text" id="txtBeginDate">
+					&nbsp;到&nbsp;&nbsp;<input type="text" id="txtEndDate">
+					&nbsp;<input type="checkbox" class="unlimited_date">
+					不限日期
+				</div>
+				<div class="date_remarks">
+					备注说明&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="text" id="date_remarks_value">
+					<button id="date_remarks_query">查询</button>
+				</div>
+			</div>
+    </div>
+    <div class="operation">
+			<div class="operation_btn">
+				<button id="operation_btn_add">添加设备</button>
+				<button id="operation_btn_edit">编辑设备</button>
+			</div>
+    </div>
+	</div>
+	<div class="list">
+		<table id="example" class="table table-border table-bordered table-bg table-hover table-sort dataTable" style="text-align: center;">
+				<thead>
+					<tr>
+						<th width="20" style="text-align: center;">ID</th>
+						<th width="100" style="text-align: center;">设备编码</th>
+						<th width="200" style="text-align: center;">设备类型</th>
+						<th width="80" style="text-align: center;">销售日期</th>
+						<th width="60" style="text-align: center;">升级歌库</th>
+						<th width="60" style="text-align: center;">升级舞台</th>
+						<th width="60" style="text-align: center;">公司名称</th>
+						<th width="60" style="text-align: center;">设备积分</th>
+						<th width="60" style="text-align: center;">可用次数</th>
+						<th width="60" style="text-align: center;">备注说明</th>
+						<th width="10" style="text-align: center;">1</th>
+						<th width="10" style="text-align: center;">2</th>
+						<th width="10" style="text-align: center;">3</th>
+						<th width="10" style="text-align: center;">4</th>
+						<th width="10" style="text-align: center;">5</th>
+						<th width="10" style="text-align: center;">6</th>
+						<th width="10" style="text-align: center;">7</th>
+						<th width="10" style="text-align: center;">8</th>
+						<th width="100" style="text-align: center;">授权</th>
+					</tr>
+				</thead>
+				<tbody style="text-align: center;width: 100%;height:200px;overflow: hidden;">
+				</tbody>
+		</table>
+	</div>
+</section>
+<div class="add_equipment">
+	<h2>
+		<span class="add_equipment_headtxt">新增销售设备</span>
+		<span class="add_equipment_close"></span>
+	</h2>
+	<div class="add_equipment_cont">
+		<!-- 设备编码行 -->
+		<div class="add_coding">
+			<div class="add_coding_l">
+				<span>设备编码</span>
+				<input type="text" id="add_coding_l_value">
+			</div>
+			<div class="add_coding_r">
+					<span>设备类型</span>
+					<input type="text" id="add_coding_r_value">
+			</div>
+		</div>
+		<!-- 销售日期行 -->
+		<div class="add_date">
+				<div class="add_date_l">
+						<span>销售日期</span>
+						<input type="text" id="txtedit">
+				</div>
+				<div class="add_date_r">
+						<span>购买公司</span>
+						<input type="text" id="add_date_r_value">
+				</div>
+		</div>
+		<!-- 联系人行 -->
+		<div class="add_contacts">
+				<div class="add_contacts_l">
+						<span>联系人</span>
+						<input type="text" id="add_contacts_l_value">
+				</div>
+				<div class="add_contacts_r">
+						<span>电话</span>
+						<input type="text" id="add_contacts_r_value">
+				</div>
+		</div>
+		<!-- 积分类型行 -->
+		<div class="add_integral">
+				<div class="add_integral_l">
+						<span>积分类型</span>
+						<select name="" id="add_integral_l_value">
+							<option value="0">赠送</option>
+							<option value="1">充值</option>
+						</select>
+				</div>
+				<div class="add_integral_r">
+						<span>设备积分</span>
+						<input type="text" id="add_integral_r_value">
+				</div>
+		</div>
+		<!-- 次数类型行 -->
+		<div class="add_num">
+				<div class="add_num_l">
+						<span>次数类型</span>
+						<select name="" id="add_num_l_value">
+								<option value="0">赠送</option>
+								<option value="1">充值</option>
+						</select>
+				</div>
+				<div class="add_num_r">
+						<span>可用次数</span>
+						<input type="checkbox" id="add_num_r_value">设为不限次数
+				</div>
+		</div>
+		<!-- 歌库舞台升级 -->
+		<div class="add_library">
+			<div class="add_library_l">
+					<span>歌库升级</span>
+					<select name="" id="add_library_l_value">
+						<option value="-1">允许</option>
+						<option value="0">不允许</option>
+					</select>
+			</div>
+			<div class="add_library_r">
+				<span>舞台升级</span>
+				<select name="" id="add_library_r_value">
+					<option value="-1">允许</option>
+					<option value="0">不允许</option>
+				</select>
+			</div>
+		</div>
+		<!-- 编辑设备积分 -->
+		<div class="add_branch">
+			<div class="add_branch_l">
+				<span>设备积分</span>
+				<input type="text" id="add_branch_l_value">
+			</div>
+			<div class="add_branch_r">
+					<span>使用次数</span>
+					<input type="text" id="add_branch_r_value">
+			</div>
+		</div>
+		<!-- 备注说明行 -->
+		<div class="add_explain">
+			<span>备注说明</span>
+			<input type="text" id="add_explain_value">
+		</div>
+		<!-- 多选行 -->
+		<div class="add_checkboxs">
+			<ul>
+				<li><label>1&nbsp;&nbsp; <input type="checkbox" data-id="1"></label></li>
+				<li><label>2&nbsp;&nbsp; <input type="checkbox" data-id="2"></label></li>
+				<li><label>3&nbsp;&nbsp; <input type="checkbox" data-id="3"></label></li>
+				<li><label>4&nbsp;&nbsp; <input type="checkbox" data-id="4"></label></li>
+				<li><label>5&nbsp;&nbsp; <input type="checkbox" data-id="5"></label></li>
+				<li><label>6&nbsp;&nbsp; <input type="checkbox" data-id="6"></label></li>
+				<li><label>7&nbsp;&nbsp; <input type="checkbox" data-id="7"></label></li>
+				<li><label>8&nbsp;&nbsp; <input type="checkbox" data-id="8"></label></li>
+				<li><label>9&nbsp;&nbsp; <input type="checkbox" data-id="9"></label></li>
+				<li><label>10 <input type="checkbox" data-id="10"></label></li>
+				<li><label>11 <input type="checkbox" data-id="11"></label></li>
+				<li><label>12 <input type="checkbox" data-id="12"></label></li>
+				<li><label>13 <input type="checkbox" data-id="13"></label></li>
+				<li><label>14 <input type="checkbox" data-id="14"></label></li>
+				<li><label>15 <input type="checkbox" data-id="15"></label></li>
+				<li><label>16 <input type="checkbox" data-id="16"></label></li>
+				<li><label>17 <input type="checkbox" data-id="17"></label></li>
+				<li><label>18 <input type="checkbox" data-id="18"></label></li>
+				<li><label>19 <input type="checkbox" data-id="19"></label></li>
+				<li><label>20 <input type="checkbox" data-id="20"></label></li>
+				<li><label>21 <input type="checkbox" data-id="21"></label></li>
+				<li><label>22 <input type="checkbox" data-id="22"></label></li>
+				<li><label>23 <input type="checkbox" data-id="23"></label></li>
+				<li><label>24 <input type="checkbox" data-id="24"></label></li>
+				<li><label>25 <input type="checkbox" data-id="25"></label></li>
+				<li><label>26 <input type="checkbox" data-id="26"></label></li>
+				<li><label>27 <input type="checkbox" data-id="27"></label></li>
+				<li><label>28 <input type="checkbox" data-id="28"></label></li>
+				<li><label>29 <input type="checkbox" data-id="29"></label></li>
+			</ul>
+		</div>
+		<!-- 确认取消行 -->
+		<div class="add_button">
+			<div class="add_button_power">
+				<span>授权</span>
+				<input type="checkbox" id="add_button_power">
+			</div>
+			<div class="add_button_btn">
+				<button class="add_button_btn_confirm">确定</button>
+				<button class="add_button_btn_cancel">取消</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="./js/jquery.min.js"></script>
+<script src="./js/lyz.calendar.min.js"></script>
+<script src="./js/jsencrypt.min.js"></script>
+<script src="./js/jquery.dataTables.min.js"></script>
+<script src="./layui/layui.js"></script>
+<script src="./js/equipment.js"></script>
+</body>
+</html>

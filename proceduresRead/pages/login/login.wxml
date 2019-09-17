@@ -1,0 +1,18 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="head">
+    <image src="../../images/yewu-xg.png"></image>
+    <view class="headertxt">{{headerTxt}}</view>
+  </view>
+  <view class="information">
+    <view class="content_head">
+      为了保证用户安全和更好的用户体验，请确认授权以下信息
+    </view>
+    <view class="content_grant">
+      获得你的公开信息（昵称、头像等）
+    </view>
+  </view>
+  <view class="footer">
+    <button class='bottom' type='primary' open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="bindGetUserInfo">确认授权</button>
+  </view>
+</view>

@@ -1,0 +1,6 @@
+/**index.wxss**/
+.container{
+  margin:0;
+  box-sizing: border-box;
+  padding:10px;
+}

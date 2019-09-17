@@ -1,0 +1,10 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="head">
+    <image src="{{avatarUrl}}"></image>
+    <view class="headertxt">{{nickName}}</view>
+  </view>
+  <view class="information">
+    <view class="content"></view>
+  </view>
+</view>

@@ -1,0 +1,337 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="user-scalable=yes">
+<title>库房管理系统</title>
+<link rel="stylesheet" href="../Home/css/warehouse.css" type="text/css">
+<script src="../Home/laydate/laydate.js"></script>
+<script src="../Home/js/jquery-1.8.2.min.js"></script>
+<script>
+    function none(){
+        document.all.ly.style.display='none';
+        document.all.append.style.display='none';
+        document.all.detai.style.display='none';
+    }
+    function ad(){
+        document.all.ly.style.display='block';
+        document.all.append.style.display='block';
+        document.all.detai.style.display='none';
+    }
+    function detail(id){
+        $.ajax({
+            url:'__MODULE__/Machineregister/update',
+            type:'post',
+            data:{'id':id},
+            success:function(json){
+                var data=eval('('+json+')');
+                $('#machine_id1').val(data.machine_id);
+                $('#model_id1').val(data.model_id);
+                $('#dongle_id1').val(data.dongle_id);
+                $('#dongle_unique1').val(data.dongle_unique);
+                $('#cpu1').val(data.cpu);
+                $('#mainboard1').val(data.mainboard);
+                $('#harddisk1').val(data.harddisk);
+                $('#graphics1').val(data.graphics);
+                $('#memory1').val(data.memory);
+                $('#sound_card1').val(data.sound_card);
+                $('#capture_card1').val(data.capture_card);
+                $('#output_card1').val(data.output_card);
+                $('#monitor1').val(data.monitor);
+                $('#notes1').val(data.notes);
+                $('#assemblers1').val(data.assemblers);
+                $('#testers1').val(data.testers);
+                $('#chassis1').val(data.chassis);
+                $('#cd_writer1').val(data.cd_writer);
+                $('#power_supply1').val(data.power_supply);
+                $('#add_time1').val(data.add_time);
+                if(data.out_flag=='0'){
+                    $('#out_flag1').val('未出库');
+                }else{
+                    $('#out_flag1').val('已出库');
+                }
+                $('#out_time1').val(data.out_time);
+                document.all.ly.style.display='block';
+                document.all.append.style.display='none';
+                document.all.detai.style.display='block';
+            }
+        })
+    }
+    function amend(id) {
+        if (confirm("你确定出库吗？")) {
+            var out_time = prompt("请输入出库时间,格式 ：2017-11-22",'');
+            if(out_time!=null){
+                if (out_time)//如果返回的有内容
+                {
+                    $.ajax({
+                        url:'__MODULE__/Machineregister/out',
+                        type:'post',
+                        data:{'id':id,'out_time':out_time},
+                        success:function(data){
+                            if(data==1){
+                                alert('操作成功！');
+                                window.location.reload();
+                            }else{
+                                alert('操作失败！')
+                                window.location.reload();
+                            }
+                        }
+                    });
+                }else{
+                    alert('出库时间不能为空！');
+                }
+            }
+
+        }
+    }
+
+</script>
+</head>
+
+<body>
+    <section class="content1"> 
+        <table  class="list" cellspacing="0" rules="none">
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">合同编号</th>
+                <th scope="col">产品名称</th>
+                <th scope="col">价格</th>
+                <th scope="col">数量</th>
+                <th scope="col">时间</th>
+                <th scope="col">状态（0进行中）（1已完成）</th>
+                <th scope="col">物流单号</th>
+                <th scope="col">备注</th>
+                <th scope="col">完成时间</th>
+            </tr>
+            <foreach name="machineArr" item="v">
+                <tr>
+                    <td><if condition="$v['machine_id'] eq ''">--<else/>{$v.machine_id}</if></td>
+                    <td><if condition="$v['model_id'] eq ''">--<else/>{$v.model_id}</if></td>
+                    <td><if condition="$v['dongle_id'] eq ''">--<else/>{$v.dongle_id}</if></td>
+                    <td><if condition="$v['dongle_unique'] eq ''">--<else/>{$v.dongle_unique}</if></td>
+                    <td><if condition="$v['cpu'] eq ''">--<else/>{$v.cpu}</if></td>
+                    <td><if condition="$v['mainboard'] eq ''">--<else/>{$v.mainboard}</if></td>
+                    <td><if condition="$v['harddisk'] eq ''">--<else/>{$v.harddisk}</if></td>
+                    <td><if condition="$v['graphics'] eq ''">--<else/>{$v.graphics}</if></td>
+                    <td><if condition="$v['memory'] eq ''">--<else/>{$v.memory}</if></td>
+                    <td><if condition="$v['assemblers'] eq ''">--<else/>{$v.assemblers}</if></td>
+                    <td><if condition="$v['testers'] eq ''">--<else/>{$v.testers}</if></td>
+                    <td>{$v.add_time}</td>
+                    <td>
+                        <if condition="$v['out_flag'] eq 0 ">
+                            <!-- <a href="javascript:void (0);" onclick="amend({$v.id})">未出库</a> -->
+                            <a href="javascript:void (0);" onclick="amend()">未出库</a>
+                            <else/>
+                            已出库
+                        </if>
+                    </td>
+                    <td><if condition="$v['out_time'] eq ''">--<else/>{$v.out_time}</if></td>
+                    <!-- <td><a href="#" onclick="detail({$v.id})">查看详情</a></td> -->
+                    <td><a href="#" onclick="detail()">查看详情</a></td>
+                </tr>
+            </foreach>
+                <tr>
+                    <td colspan="19">{$show}</td>
+                </tr>
+        </table>
+    </section>
+          
+    <div id="ly"></div>
+    <div id="append">
+        <form method="post" action="__MODULE__/Machineregister/save_add" id="form">
+            <div class="append_div">
+                <div class="append_input">
+                    <label for="machine_id"><h4>机器编号：</h4></label>
+                    <input type="text" name="machine_id" id="machine_id"/>
+                </div>
+                <div class="append_input">
+                    <label for="model_id"><h4>型号：</h4></label>
+                    <input type="text" name="model_id" id="model_id"/>
+                </div>
+                <div class="append_input">
+                    <label for="dongle_id"><h4>加密狗：</h4></label>
+                    <input type="text" name="dongle_id" id="dongle_id"/>
+                </div>
+                <div class="append_input">
+                    <label for="dongle_unique"><h4>唯一码：</h4></label>
+                    <input type="text" name="dongle_unique" id="dongle_unique"/>
+                </div>
+                <div class="append_input">
+                    <label for="cpu"><h4>Cpu：</h4></label>
+                    <input type="text" name="cpu" id="cpu"/>
+                </div>
+                <div class="append_input">
+                    <label for="mainboard"><h4>主板：</h4></label>
+                    <input type="text" name="mainboard" id="mainboard"/>
+                </div>
+                <div class="append_input">
+                    <label for="harddisk"><h4>硬盘：</h4></label>
+                    <input type="text" name="harddisk" id="harddisk"/>
+                </div>
+                <div class="append_input">
+                    <label for="graphics"><h4>显卡：</h4></label>
+                    <input type="text" name="graphics" id="graphics"/>
+                </div>
+                <div class="append_input">
+                    <label for="monitor"><h4>显示器：</h4></label>
+                    <input type="text" name="monitor" id="monitor"/>
+                </div>
+                <div class="append_input">
+                    <label for="memory"><h4>内存：</h4></label>
+                    <input type="text" name="memory" id="memory"/>
+                </div>
+                <div class="append_input">
+                    <label for="sound_card"><h4>声卡：</h4></label>
+                    <input type="text" name="sound_card" id="sound_card"/>
+                </div>
+                <div class="append_input">
+                    <label for="capture_card"><h4>采集卡：</h4></label>
+                    <input type="text" name="capture_card" id="capture_card"/>
+                </div>
+                <div class="append_input">
+                    <label for="output_card"><h4>输出卡：</h4></label>
+                    <input type="text" name="output_card" id="output_card"/>
+                </div>
+                <div class="append_input">
+                    <label for="chassis"><h4>机箱：</h4></label>
+                    <input type="text" name="chassis" id="chassis"/>
+                </div>
+                <div class="append_input">
+                    <label for="cd_writer"><h4>刻录机：</h4></label>
+                    <input type="text" name="cd_writer" id="cd_writer"/>
+                </div>
+                <div class="append_input">
+                    <label for="cd_writer"><h4>电源：</h4></label>
+                    <input type="text" name="power_supply" id="power_supply"/>
+                </div>
+                <div class="append_input">
+                    <label for="assemblers"><h4>组装人员：</h4></label>
+                    <input type="text" name="assemblers" id="assemblers"/>
+                </div>
+                <div class="append_input">
+                    <label for="testers"><h4>测试人员：</h4></label>
+                    <input type="text" name="testers" id="testers"/>
+                </div>
+                <div class="append_input_qt">
+                    <label for="notes"><h4>其他：</h4></label>
+                    <textarea name="notes" id="notes"></textarea>
+                </div>
+            </div>
+            <input type="button" class="an_q" value="取消" onclick="none()">
+            <input type="submit" class="an_s" value="提交">
+        </form>
+    </div>
+    <div id="detai">
+            <div class="append_div">
+                <div class="append_input">
+                    <label for="machine_id1"><h4>机器编号：</h4></label>
+                    <input type="text" name="machine_id" disabled id="machine_id1"/>
+                </div>
+                <div class="append_input">
+                    <label for="model_id1"><h4>型号：</h4></label>
+                    <input type="text" name="model_id" disabled id="model_id1"/>
+                </div>
+                <div class="append_input">
+                    <label for="dongle_id1"><h4>加密狗：</h4></label>
+                    <input type="text" name="dongle_id" disabled id="dongle_id1"/>
+                </div>
+                <div class="append_input">
+                    <label for="dongle_unique1"><h4>唯一码：</h4></label>
+                    <input type="text" name="dongle_unique" disabled id="dongle_unique1"/>
+                </div>
+                <div class="append_input">
+                    <label for="cpu1"><h4>Cpu：</h4></label>
+                    <input type="text" name="cpu" disabled id="cpu1"/>
+                </div>
+                <div class="append_input">
+                    <label for="mainboard1"><h4>主板：</h4></label>
+                    <input type="text" name="mainboard" disabled id="mainboard1"/>
+                </div>
+                <div class="append_input">
+                    <label for="harddisk1"><h4>硬盘：</h4></label>
+                    <input type="text" name="harddisk" disabled id="harddisk1"/>
+                </div>
+                <div class="append_input">
+                    <label for="graphics1"><h4>显卡：</h4></label>
+                    <input type="text" name="graphics" disabled id="graphics1"/>
+                </div>
+                <div class="append_input">
+                    <label for="monitor1"><h4>显示器：</h4></label>
+                    <input type="text" name="monitor" disabled id="monitor1"/>
+                </div>
+                <div class="append_input">
+                    <label for="memory1"><h4>内存：</h4></label>
+                    <input type="text" name="memory" disabled id="memory1"/>
+                </div>
+                <div class="append_input">
+                    <label for="sound_card1"><h4>声卡：</h4></label>
+                    <input type="text" name="sound_card" disabled id="sound_card1"/>
+                </div>
+                <div class="append_input">
+                    <label for="capture_card1"><h4>采集卡：</h4></label>
+                    <input type="text" name="capture_card" disabled id="capture_card1"/>
+                </div>
+                <div class="append_input">
+                    <label for="output_card1"><h4>输出卡：</h4></label>
+                    <input type="text" name="output_card" disabled id="output_card1"/>
+                </div>
+                <div class="append_input">
+                    <label for="chassis1"><h4>机箱：</h4></label>
+                    <input type="text" name="chassis" disabled id="chassis1"/>
+                </div>
+                <div class="append_input">
+                    <label for="cd_writer1"><h4>刻录机：</h4></label>
+                    <input type="text" name="cd_writer" disabled id="cd_writer1"/>
+                </div>
+                <div class="append_input">
+                    <label for="cd_writer1"><h4>电源：</h4></label>
+                    <input type="text" name="power_supply" disabled id="power_supply1"/>
+                </div>
+                <div class="append_input">
+                    <label for="assemblers1"><h4>组装人员：</h4></label>
+                    <input type="text" name="assemblers" disabled id="assemblers1"/>
+                </div>
+                <div class="append_input">
+                    <label for="testers1"><h4>测试人员：</h4></label>
+                    <input type="text" name="testers" id="testers1" disabled />
+                </div>
+
+                <div class="append_input">
+                     <label for="add_time1"><h4>录入时间：</h4></label>
+                     <input type="text" name="add_time" id="add_time1" disabled />
+                </div>
+
+                <div class="append_input">
+                      <label for="out_flag1"><h4>是否出库：</h4></label>
+                      <input type="text" name="testers" id="out_flag1" disabled />
+                </div>
+
+                <div class="append_input">
+                      <label for="out_time1"><h4>出库时间：</h4></label>
+                      <input type="text" name="testers" id="out_time1" disabled />
+                 </div>
+                            <div class="append_input_qt">
+                <div class="append_input_qt">
+                    <label for="notes1"><h4>其他：</h4></label>
+                    <textarea name="notes1" id="notes1" disabled></textarea>
+                </div>
+            </div>
+            <input type="button" class="an_q" value="关闭" onclick="none()">
+
+    </div>
+
+    </div>
+
+    <script>
+    ;!function(){
+
+    //laydate.skin('molv');
+
+    laydate({
+       elem: '#yx'
+    })
+
+    }();
+    </script>
+</body>
+</html>

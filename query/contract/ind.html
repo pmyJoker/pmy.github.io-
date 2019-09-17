@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>layui在线调试</title>
+	<link rel="stylesheet" href="./layui/css/layui.css" media="all">
+	<link rel="stylesheet" href="./css/jquery.dataTables.min.css">
+	<link rel="stylesheet" href="./css/H-ui.reset.css">
+	<link rel="stylesheet" href="./css/H-ui.min.css">
+	<!--这里要改成自己的资源路径-->
+	<style>
+			body {
+					margin: 20px;
+			}
+	</style>
+</head>
+<body>
+
+		<table id="example" class="display" style="text-align: center;">
+				<thead>
+						<tr>
+								<th width="40" style="text-align: center;">ID</th>
+								<th width="100" style="text-align: center;">合同编号</th>
+								<th width="100" style="text-align: center;">产品名称</th>
+								<th width="60" style="text-align: center;">产品价格</th>
+								<th width="60" style="text-align: center;">产品数量</th>
+								<th width="60" style="text-align: center;">创建时间</th>
+								<th width="60" style="text-align: center;">状态</th>
+								<th width="60" style="text-align: center;">物流单号</th>
+								<th width="60" style="text-align: center;">备注</th>
+								<th width="60" style="text-align: center;">完成时间</th>
+								<th width="40" style="text-align: center;">操作</th>
+						</tr>
+				</thead>
+				<tbody>
+
+				</tbody>
+</table>
+			
+
+<script src="./js/jquery.min.js"></script>
+<script src="./layui/layui.js"></script>
+<script src="./js/jquery.dataTables.min.js"></script>
+<script src="./js/H-ui.js"></script>
+<script>
+$(function () {			
+	//object可以如下初始化表格
+	$('#example').DataTable({
+		"aaSorting": [[ 0, "desc" ]],//默认第几个排序
+    //"bStateSave": true,//状态保存
+    "aLengthMenu" : [ 10, 20, 30,50 ] , //更改显示记录数选项
+    "iDisplayLength" : 10, //默认显示的记录数
+    "bLengthChange": true,                  //是否允许用户自定义每页显示条数。
+    "bPaginate": true,                      //是否分页。
+    "bProcessing": true,                    //当datatable获取数据时候是否显示正在处理提示信息。
+    "sPaginationType": 'full_numbers',      //分页样式
+		"serverSide":true,
+		"Options":"cell-border",
+		"language":{ //把文字变为中文  
+			"sProcessing": "处理中...",  
+			"sLengthMenu": "显示 _MENU_ 项结果",  
+			"sZeroRecords": "没有匹配结果",  
+			"sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",  
+			"sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",  
+			"sInfoFiltered": "(由 _MAX_ 项结果过滤)",  
+			"sInfoPostFix": "",  
+			"sSearch": "搜索:",  
+			"sUrl": "",  
+			"sEmptyTable": "表中数据为空",  
+			"sLoadingRecords": "载入中...",  
+			"sInfoThousands": ",",  
+			"oPaginate": {  
+					"sFirst": "首页",  
+					"sPrevious": "上页",  
+					"sNext": "下页",  
+					"sLast": "末页"  
+			},  
+			"oAria": {  
+					"sSortAscending": ": 以升序排列此列",  
+					"sSortDescending": ": 以降序排列此列"  
+			}  
+		},
+    "ajax": {
+        url: "http://192.168.1.133/project/storeroom/admin/Contract/ceshi",
+        type: "get",
+        dataType: "json",
+        data: function (d) {
+        	// console.log(d);
+            d.search = d.search.value;
+            d.sort = d.order[0].column;
+            d.sort_way = d.order[0].dir;
+        },
+        dataSrc: function (data){
+					console.log(data);
+            if (data.recordsTotal == null) {
+                data.recordsTotal = 0;
+            }
+            //查询结束取消按钮不可用
+			// console.log(data);
+            return data.rows;//自定义数据源，默认为data
+        },
+    },
+    "retrieve":true,
+    "columns": [
+        { "data": "id"},
+        { "data": "contract_no"},
+        { "data": "product_name"},
+        { "data": "product_price"},
+        { "data": "product_num"},
+        { "data": "data_intime"},
+        { "data": "status"},
+        { "data": "logistics"},
+        { "data": "remarks"},
+        { "data": "data_uptime"},
+        { "data": "id"},
+    ],
+		} );
+		
+	// $.ajax({
+	// 	// url:"http://192.168.1.133/supsoft/index.php/Home/product/ceshi",
+	// 	url: "http://192.168.1.133/project/storeroom/admin/Contract/ceshi",
+	// 	type: "GET",
+	// 	dataType: "json",
+	// 	success:function(data){
+	// 		console.log(data);
+	// 	},
+	// 	error:function(err){
+	// 		console.log(err);
+	// 	}
+	// })
+});
+
+</script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+/**index.wxss**/
+.container{
+  margin:0;
+  box-sizing: border-box;
+  padding:10rpx;
+}
+.head{
+  width:100%;
+  text-align: center;
+  margin-bottom: 20rpx;
+  font-size: 40rpx;
+}
+.head image{
+  width:104rpx;
+  height:104rpx;
+  margin-bottom: 10rpx;
+  border-radius: 50%;
+}
+
+.information{
+  width:100%;
+}

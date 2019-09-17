@@ -1,0 +1,438 @@
+*{
+	margin:0;
+	padding:0;
+	box-sizing: border-box;
+}
+section{
+	width:95%;
+	margin:10px auto;
+}
+section .head{
+	width:100%;
+	display: flex;
+}
+/* 设备编码 */
+section .head .query{
+	width:90%;
+	/* height:130px; */
+	padding:0 5px;
+	font-size: 0;
+}
+.query .code{
+	width: 100%;
+	display: flex;
+	font-size: 16px;
+	margin: 10px 0;
+}
+.code_equipment{
+	width:27.5%;
+}
+.code_equipment input{
+	width:77%;
+	height:20px;
+	font-size: 14px;
+}
+.code_type{
+	width:32.5%;
+}
+.code_type select{
+	width:56%;
+	height:22px;
+	font-size: 14px;
+}
+.code_company{
+	width:40%;
+}
+.code_company select{
+	width:75%;
+	height:22px;
+	font-size: 14px;
+}
+/* 积分范围 */
+.integral{
+	width:100%;
+	font-size: 16px;
+	display:flex;
+	margin-bottom:10px;
+}
+.integral_range{
+	width:60%;
+}
+.integral_range input{
+	width:35%;
+	height:20px;
+	font-size: 14px;
+}
+.integral_num{
+	width:40%;
+}
+.integral_num input{
+	width:35%;
+	height:20px;
+	font-size: 14px;
+}
+/* 销售日期 */
+.date{
+	width:100%;
+	font-size: 16px;
+	display:flex;
+	margin-bottom: 10px;
+}
+.date_sale{
+	width:60%;
+	flex:1;
+}
+.date_sale input{
+	width:35%;
+	height:20px;
+	font-size: 14px;
+}
+.date_sale .unlimited_date{
+	width:15px;
+	height:15px;
+}
+.date_remarks{
+	width:40%;
+}
+.date_remarks input{
+	width: 65%;
+	height:20px;
+	margin:3px 5px;
+	font-size: 14px;
+}
+.date_remarks button{
+	width:60px;
+	height:29px;
+	font-size: 14px;
+	background:#009688;
+	border:none;
+	color:#fff;
+}
+
+section .head .operation{
+	width:10%;
+}
+.operation_btn {
+	width: 100%;
+}
+.operation_btn button{
+	float:right;
+	margin-top: 20px;
+	margin-left: 60px;
+	width:70px;
+	height: 30px;
+	font-size: 14px;
+	background:#009688;
+	border:none;
+	color:#fff;
+}
+
+.list{
+	width:100%;
+}
+.list table{
+	width:1000px;
+	text-align: center;
+	font-size: 14px;
+	border:none;
+}
+.list table tr{
+	width:1000px;
+	height:30px;
+}
+.list table thead{
+	width:1000px;
+	height: 30px;
+}
+.list table tbody{
+	width:1000px;
+	height:440px;
+}
+.list table td{
+	width:100px;
+	height: 30px;
+	border:1px solid #ccc;
+}
+#example_wrapper{
+	border:none;
+}
+
+.dataTables_scrollBody{
+	border:none;
+	text-align: center;
+	vertical-align: middle;
+}
+
+/* 日期选择定位 */
+#divDate{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 190px;
+	height: 180px;
+	display: none;
+}
+#txtEndDateCalendar{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 188px;
+	height: 178px;
+	display: none;
+	overflow: hidden;
+}
+#txteditCalendar{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 190px;
+	height: 180px;
+	display: none;
+}
+
+
+
+/* 增加设备的弹窗 */
+.add_equipment{
+	position: absolute;
+	left:50%;top:10%;
+	width:750px;
+	height: 750px;
+	border:1px solid #ccc;
+	margin-left: -375px;
+	display:none;
+}
+.add_equipment h2{
+	width:750px;
+	height:30px;
+	line-height:30px;
+	font-size: 16px;
+	padding:0 10px;
+	border-bottom: 1px solid black;
+	background:#ebebeb;
+}
+.add_equipment h2 .add_equipment_close{
+	float:right;
+	width: 50px;
+	height: 20px;
+	background:url("../images/close.png") no-repeat;
+	background-size: 100% 100%;
+}
+.add_equipment_cont{
+	width:750px;
+	height: 720px;
+	padding:50px 50px 0 50px;
+	background:#eee;
+	font-size: 20px;
+}
+/* 设备编码 */
+.add_coding{
+	width:100%;
+	height:50px;
+	display:flex;
+	justify-content: space-between;
+}
+.add_coding span{
+	display:inline-block;
+	width: 100px;
+	text-align: center;
+}
+.add_coding input{
+	width: 200px;
+	height:25px;
+	font-size: 16px;
+}
+/* 销售日期 */
+.add_date{
+	width:100%;
+	height:50px;
+	display:flex;
+	justify-content: space-between;
+}
+.add_date span{
+	display:inline-block;
+	width: 100px;
+	text-align: center;
+}
+.add_date input{
+	width: 200px;
+	height:25px;
+	font-size: 16px;
+}
+/* 联系人 */
+.add_contacts{
+	width:100%;
+	height:50px;
+	display:flex;
+	justify-content: space-between;
+}
+.add_contacts span{
+	display:inline-block;
+	width: 100px;
+	text-align: center;
+}
+.add_contacts input{
+	width: 200px;
+	height:25px;
+	font-size: 16px;
+}
+/* 积分类型 */
+.add_integral{
+	width:100%;
+	height:50px;
+	display:flex;
+	justify-content: space-between;
+}
+.add_integral span{
+	display:inline-block;
+	width: 100px;
+	text-align: center;
+}
+.add_integral select{
+	width: 200px;
+	height:25px;
+	font-size: 16px;
+}
+.add_integral input{
+	width: 200px;
+	height:25px;
+	font-size: 16px;
+}
+/* 次数类型 */
+.add_num{
+	width:100%;
+	height:50px;
+	display:flex;
+	justify-content: space-between;
+}
+.add_num span{
+	display:inline-block;
+	width: 100px;
+	text-align: center;
+}
+.add_num select{
+	width: 200px;
+	height:25px;
+	font-size: 16px;
+}
+.add_num_r{
+	margin-right: 50px;
+}
+.add_num_r input{
+	width: 20px;
+	height: 20px;
+	margin-right:10px;
+}
+
+/* 歌库升级 */
+.add_library{
+	width:100%;
+	height:50px;
+	display:flex;
+	justify-content: space-between;
+	/* display:none; */
+}
+.add_library span{
+	display:inline-block;
+	width: 100px;
+	text-align: center;
+}
+.add_library select{
+	width: 200px;
+	height:30px;
+	font-size: 16px;
+}
+
+/* 编辑设备积分 */
+.add_branch{
+	width:100%;
+	height:50px;
+	display:flex;
+	justify-content: space-between;
+	/* display:none; */
+}
+.add_branch span{
+	display:inline-block;
+	width: 100px;
+	text-align: center;
+}
+.add_branch input{
+	width: 200px;
+	height:25px;
+	font-size: 16px;
+}
+
+/* 备注说明 */
+.add_explain{
+	width:100%;
+	height:50px;
+}
+.add_explain span{
+	display:inline-block;
+	width: 100px;
+	text-align: center;
+}
+.add_explain input{
+	width: 540px;
+	height:25px;
+	font-size: 16px;
+}
+
+/* 多选行 */
+.add_checkboxs{
+	width:100%;
+	height:300px;
+}
+.add_checkboxs ul{
+	width:100%;
+	height:300px;
+	list-style: none;
+	display:flex;
+	flex-wrap: wrap;
+	padding:0 50px;
+	text-align: center;
+	font-size: 0;
+}
+.add_checkboxs ul li{
+	width: 130px;
+	height:30px;
+	line-height: 0;
+	font-size: 18px;
+}
+.add_checkboxs ul input{
+	width: 20px;
+	height: 20px;
+	vertical-align: middle;
+}
+/* 确定取消按钮 */
+.add_button{
+	width: 100%;
+	height: 50px;
+	margin-top: 10px;
+	display: flex;
+	justify-content: space-evenly;
+}
+.add_button_power{
+	font-size: 18px;
+}
+.add_button_power input{
+	width: 20px;
+	height: 20px;
+	vertical-align: middle;
+}
+.add_button_btn_confirm{
+	width: 70px;
+	height: 30px;
+	font-size: 14px;
+	background: #009688;
+	border: none;
+	color: #fff;
+}
+.add_button_btn_cancel{
+	width: 70px;
+	height: 30px;
+	font-size: 14px;
+	background: #009688;
+	border: none;
+	color: #fff;
+}

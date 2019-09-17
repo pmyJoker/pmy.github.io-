@@ -1,0 +1,41 @@
+/**index.wxss**/
+.container{
+  margin:0;
+  box-sizing: border-box;
+  padding:15px;
+}
+.head{
+  width:100%;
+  text-align: center;
+  margin-bottom: 20px;
+}
+.head image{
+  width:52px;
+  height:52px;
+  margin-bottom: 10px;
+}
+
+.information{
+  width:100%;
+  border-top: 1px solid #ccc;
+}
+.information .content_head{
+  width:100%;
+  margin:30px 0;
+  font-size: 16px;
+}
+.information .content_grant{
+  width:100%;
+  font-size: 14px;
+  color:#ccc;
+}
+
+.footer{
+  width:100%;
+  margin-top: 30px;
+}
+.footer button{
+  width:100%;
+  background:rgb(28, 185, 28);
+  color:#fff;
+}
