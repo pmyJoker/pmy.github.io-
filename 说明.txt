@@ -1,5 +1,7 @@
-equipment       订单查询业务
+equipment       璁㈠崟鏌ヨ涓氬姟
 
-query           合同列表
+query           鍚堝悓鍒楄〃
 
-read            阅读
+read            闃呰
+
+鏇存敼
