@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script>
+    window.onload = function(){
+      /*750代表设计师给的设计稿的宽度，你的设计稿是多少，就写多少;100代表换算比例，这里写100是为了以后好算,比如，你测量的一个宽度是100px,就可以写为1rem,以及1px=0.01rem等等*/
+      getRem(375,100);
+    };
+    window.onresize = function(){
+      getRem(375,100);
+    };
+    function getRem(pwidth,prem){
+      var html = document.getElementsByTagName("html")[0];
+      var oWidth = document.body.clientWidth || document.documentElement.clientWidth;
+      html.style.fontSize = oWidth/pwidth*prem + "px";
+    }
+  </script>
+  <link rel="stylesheet" href="./css/reset.css">
+  <link rel="stylesheet" href="./css/index2.css">
+</head>
+<body>
+<div class="box">
+
+<div class="header-title">
+  <div class="header-back"></div>
+  <h2>充电状态详情</h2>
+</div>
+<div class="section">
+  <div class="header-cont">
+    <div class="header-pay">
+      <span></span>
+      未支付
+    </div>
+    <div class="header-price">
+      51.39 <span>元</span>
+    </div>
+  </div>
+  <div class="data">
+    <div class="data-time">
+      <div class="data-time-start">
+        <div class="time-start-top">2020/04/20</div>
+        <div class="time-start-bot">12:059</div>
+      </div>
+      <div class="data-time-duration">
+        <div class="duration-start">起</div>
+        <div class="duration-cont">
+          <div class="duration-cont-top">
+            时长 29分钟
+          </div>
+          <div class="duration-cont-bot">
+            充电量40度
+          </div>
+        </div>
+        <div class="duration-end">止</div>
+      </div>
+      <div class="data-time-end">
+        <div class="time-end-top">2020/04/20</div>
+        <div class="time-end-bot">13:28</div>
+      </div>
+    </div>
+    <div class="data-order">
+      订单编号：3063023424049910304
+    </div>
+  </div>
+
+  <main>
+    <div class="content">
+      <div class="title">卫蓝站-北京弘赫国际科创五街充电站</div>
+      <div class="operator">充电运营商   特来电</div>
+    </div>
+    <ul>
+      <li>
+        <div class="li-l">电桩编号：1102930301938</div>
+        <div class="li-r">充电详情 <span></span></div>
+      </li>
+      <li>
+        <div class="li-l">充电费(0.50元/度)</div>
+        <div class="li-r">33.32元</div>
+      </li>
+      <li>
+        <div class="li-l">服务费(0.50元/度)</div>
+        <div class="li-r">18.07元</div>
+      </li>
+      <li>
+        <div class="li-l">充电量</div>
+        <div class="li-r">40.00度</div>
+      </li>
+      <li>
+        <div class="li-l">订单总金额</div>
+        <div class="li-r">51.39元</div>
+      </li>
+      <li>
+        <div class="li-l">企业账户(共¥60.00)</div>
+        <div class="li-r">-¥51.39 <span></span></div>
+      </li>
+      <li>
+        <div class="li-l">个人余额(共¥0.00)</div>
+        <div class="li-r">无可用 <span></span></div>
+      </li>
+    </ul>
+  </main>
+</div>
+
+<footer>
+  <button>立即支付</button>
+</footer>
+
+</div>
+</body>
+</html>

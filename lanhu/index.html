@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script>
+    window.onload = function(){
+      /*750代表设计师给的设计稿的宽度，你的设计稿是多少，就写多少;100代表换算比例，这里写100是为了以后好算,比如，你测量的一个宽度是100px,就可以写为1rem,以及1px=0.01rem等等*/
+      getRem(375,100);
+    };
+    window.onresize = function(){
+      getRem(375,100);
+    };
+    function getRem(pwidth,prem){
+      var html = document.getElementsByTagName("html")[0];
+      var oWidth = document.body.clientWidth || document.documentElement.clientWidth;
+      html.style.fontSize = oWidth/pwidth*prem + "px";
+    }
+  </script>
+  <link rel="stylesheet" href="./css/reset.css">
+  <link rel="stylesheet" href="./css/index.css">
+</head>
+<body>
+<div class="header-detail">
+  <div class="header-back"></div>
+  <h2>充电状态详情</h2>
+</div>
+<div class="header-cont">
+  <div class="header-cont-titile">
+    亦庄开发区大楼南侧公共充电点
+    <span></span>
+  </div>
+  <div class="header-cont-num">
+    终端编号：1101120377202
+  </div>
+</div>
+<main>
+  <div class="content">
+    <div class="content-message">
+      <ul>
+        <li>
+          <div class="li-title">已充电量(度)</div>
+          <div class="li-cont">0.03</div>
+        </li>
+        <li>
+          <div class="li-title">已充时长</div>
+          <div class="li-cont">00:01:06</div>
+        </li>
+        <li>
+          <div class="li-title">充电费用(元)</div>
+          <div class="li-cont">0.12</div>
+        </li>
+        <li>
+          <div class="li-title">当前电压(V)</div>
+          <div class="li-cont">359V</div>
+        </li>
+        <li>
+          <div class="li-title">当前电流(A)</div>
+          <div class="li-cont">42A</div>
+        </li>
+        <li>
+          <div class="li-title">当前SOC</div>
+          <div class="li-cont">80%</div>
+        </li>
+      </ul>
+    </div>
+    <div class="content-car">
+      <img src="./img/car_white.png" alt="">
+    </div>
+    <div class="car_bottom1"></div>
+    <div class="car_bottom2"></div>
+    <div class="stop-num">
+      充电停止码：2349880
+    </div>
+    <div class="foot">
+      <button>结束充电</button>
+    </div>
+  </div>
+
+</main>
+</body>
+</html>
