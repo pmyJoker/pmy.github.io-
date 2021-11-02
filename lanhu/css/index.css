@@ -1,0 +1,156 @@
+*{
+  margin: 0;
+  padding:0;
+  box-sizing: border-box;
+}
+
+html,body{
+  width:100%;
+  height:100%;
+}
+
+.header-detail{
+  position: relative;
+  width:100%;
+  height:.44rem;
+  line-height:.44rem;
+  padding:0 .15rem;
+}
+.header-detail .header-back{
+  position: absolute;
+  left:.15rem;
+  top:50%;
+  width:.3rem;
+  height:.3rem;
+  background:url('../img/title_icon_back.png') no-repeat;
+  background-size: 100% 100%;
+  margin-top: -.15rem;
+}
+.header-detail h2{
+  width:100%;
+  text-align: center;
+  color:#222222;
+  font-size: .18rem;
+}
+.header-cont{
+  width:100%;
+  height:.52rem;
+  text-align: center;
+}
+.header-cont .header-cont-titile{
+  color:#666666;
+  font-size: .12rem;
+}
+.header-cont .header-cont-titile span{
+  display: inline-block;
+  width:.16rem;
+  height:.16rem;
+  background:url('../img/usercenter.png') no-repeat;
+  background-size: 100% 100%;
+  margin-left: .04rem;
+  vertical-align:middle;
+}
+.header-cont .header-cont-num{
+  color:#999999;
+  font-size: .12rem;
+  margin-top: .08rem;
+}
+
+main{
+  width:100%;
+  height:6.04rem;
+  padding: .12rem .15rem;
+}
+main .content{
+  width:100%;
+  height:4rem;
+  background: url('../img/bg_cont.png') no-repeat;
+  background-size: 100% 100%;
+  /* background-size: cover; */
+}
+.content-message{
+  width:100%;
+  padding:.1rem .18rem;
+  color:#4B9DCC;
+  font-size: .12rem;
+}
+.content-message ul{
+  width:100%;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.content-message ul li{
+  width:1.02rem;
+  height:.36rem;
+  text-align: center;
+  border-right: 1px solid #90C1E0;
+  margin-top: .3rem;
+}
+.content-message ul li:nth-child(3n+0){
+  border:none;
+}
+.content-message ul li .li-title{
+  height: 17px;
+  font-size: 12px;
+  margin-top: -.04rem;
+}
+.content-message ul li .li-cont{
+  color:#4798CB;
+  height: 21px;
+  font-size: .15rem;
+  margin-top: .08rem;
+}
+
+.content-car{
+  width:3.15rem;
+  height:1.83rem;
+  margin: 0 auto;
+  margin-top: .69rem;
+}
+.content-car img{
+  width:100%;
+  height:100%;
+}
+/* .car_bottom1{
+  width:3.45rem;
+  height:.68rem;
+  margin-top: -.6rem;
+  border: 2px solid #4798CB;
+  border-radius: 0 0 50% 50%/0 0 100% 100% ;
+  border-top: none;
+  background:-webkit-linear-gradient( top left bottom, #fff 0%, #fff 100%);
+}
+.car_bottom2{
+  width:3.45rem;
+  height:.68rem;
+  margin-top: -.5rem;
+  border: 2px solid #4798CB;
+  border-radius: 0 0 50% 50%/0 0 100% 100% ;
+  border-top: none;
+  background:-webkit-linear-gradient( top left bottom, #fff 0%, #fff 100%);
+} */
+
+.stop-num{
+  width:100%;
+  font-size: .12px;
+  color:#999999;
+  text-align: center;
+  margin-top: 1.12rem;
+}
+.foot{
+  width:3.45rem;
+  height:.4rem;
+  background: #4798CB;
+  border-radius: .04rem;
+  margin-top: .2rem;
+  margin-bottom: .1rem;
+}
+.foot button{
+  width:100%;
+  height:100%;
+  font-size: .16rem;
+  color:#FFFFFF;
+  background: #4798CB;
+  border-radius: .04rem;
+}
